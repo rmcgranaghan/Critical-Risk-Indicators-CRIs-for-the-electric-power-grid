@@ -1,0 +1,56 @@
+Climate domain, critical risk indicator (CRI) creation and analysis, and integrating domains
+
+The purpose of this document is to be a guide for the interaction between data scientists and domain scientists on the NSF PRISM team and for different domains to understand one another. The objective is to foster creation of the necessary PRISM project and collaborative infrastructure.
+
+This is accomplished through a 'playground' to explore new techniques to emerge Critical Risk Indicators (CRIs) and to rapidly apply data science techniques that are discussed and that emerge over the project lifetime.
+
+This document uses the climate domain as the context and provides rich descriptive and metadata as an 'experiment' and use case with which domain and data scientists on the team can interact.
+
+New development can be posed and explored as 'experiments', thereby creating a foundation for integrating different domains.
+Rules of usage
+
+    Document all development
+        All code and progress in this script must be usable to anyone that picks it up
+    Crystallize knowledge after each development
+        Attempt to define lessons learned and to share those in a way that will allow others to pick up where you left off
+    Extend this list as new rules emerge
+
+-Climate Domain
+
+--Figures for an example of existing CRI relevant to the power grid
+
+Select an SDSC DL data source for daily minimum temperature over CONUS:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE/
+
+Compute anomalies respective to reference period 1981-2010 of number of days below 0˚C in a month
+
+Flag days lesser or equal to 0˚C:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/#expert
+
+Compute monthly averages:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/#expert
+
+Compute monthly totals from monthly averages:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/T/(days%20since%201960-01-01)/streamgridunitconvert/T/differential_mul/T/(months%20since%201960-01-01)/streamgridunitconvert/#expert
+
+Compute 1981-2010 climatology and substract it to get anomalies:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/T/(days%20since%201960-01-01)/streamgridunitconvert/T/differential_mul/T/(months%20since%201960-01-01)/streamgridunitconvert/dup/T/(1981)/(2010)/RANGE/yearly-climatology/sub/#expert
+
+Apply a relevant color scale, automate data range and a more intelligibel label:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/T/(days%20since%201960-01-01)/streamgridunitconvert/T/differential_mul/T/(months%20since%201960-01-01)/streamgridunitconvert/dup/T/(1981)/(2010)/RANGE/yearly-climatology/sub/temp_anomaly_colors_gcm/DATA/AUTO/AUTO/RANGE//long_name/(Anomalies of number of cold days, 0C or less)/def/#expert
+
+Create a map for a given month/year:
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-125/-66/RANGE/Y/24/50/RANGE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/T/(days%20since%201960-01-01)/streamgridunitconvert/T/differential_mul/T/(months%20since%201960-01-01)/streamgridunitconvert/dup/T/(1981)/(2010)/RANGE/yearly-climatology/sub/temp_anomaly_colors_gcm/DATA/AUTO/AUTO/RANGE//long_name/(Anomalies of number of cold days, 0C or less)/def/X/Y/fig-/colors/white/ocean/black/countries/-fig//antialias/true/psdef/?T=Jan%202019#expert
+
+Create a time series at a given location (grid box ~ 88˚W, 37˚N):
+
+http://datalibrary.sdsc.edu/SOURCES/.NASA/.GSFC/.MERRA2/.Anl_MonoLev/.t2mmin/X/-88/VALUE/Y/37/VALUE//Celsius_scale/unitconvert/0./flagle/monthlyAverage/T/(days%20since%201960-01-01)/streamgridunitconvert/T/differential_mul/T/(months%20since%201960-01-01)/streamgridunitconvert/dup/T/(1981)/(2010)/RANGE/yearly-climatology/sub/temp_anomaly_colors_gcm/DATA/AUTO/AUTO/RANGE//long_name/(Anomalies%20of%20%number%20of%20cold%20days,%200C%20or%20less)/def/dup/T/fig-/colorbars2/-fig/#expert
+
+
