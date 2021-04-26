@@ -16,6 +16,8 @@ Jupyter notebooks included to provide a summary of the CRIs for the following do
 - Climate
 
 
+Note that most notebooks require data whose file location will need to be changed for the notebook to run properly
+
 
 
 
